@@ -1,12 +1,18 @@
-import { redirect } from 'next/navigation';
+import { notFound } from "next/navigation";
 
-interface Props {
-  params: {
-    filename: string;
-  };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function DownloadPage(props: any) {
+  const { filename } = props.params || {};
+
+  if (!filename) return notFound();
+
+  return (
+    <div>
+      <h1>Downloading: {filename}</h1>
+    </div>
+  );
 }
 
-export default function DownloadPage({ params }: Props) {
-  const fileUrl = `/uploads/${params.filename}`;
-  redirect(fileUrl);
+export function generateStaticParams() {
+  return [];
 }
